@@ -25,7 +25,7 @@
 
 - import_tasks: extensions/detect_repmgr_primary.yml
   when: postgresql_ext_install_repmgr and ansible_service_mgr == 'systemd'
-  tags: [postgresql, postgresql-extensions]
+  tags: [postgresql, postgresql-extensions, postgresql-users]
 
 - import_tasks: fdw.yml
   tags: [postgresql, postgresql-fdw]
@@ -45,9 +45,12 @@
 - import_tasks: users_privileges.yml
   tags: [postgresql, postgresql-users]
 
+- import_tasks: users_memberships.yml
+  tags: [postgresql, postgresql-users, postgresql-memberships]
+
 - import_tasks: extensions/configure_repmgr.yml
   when: postgresql_ext_install_repmgr and ansible_service_mgr == 'systemd'
-  tags: [postgresql, postgresql-extensions]
+  tags: [postgresql, postgresql-extensions, postgresql-extensions-repmgr]
 
 - import_tasks: check_pg_version_mismatch.yml
   tags: [postgresql, postgresql-version-mismatch]
