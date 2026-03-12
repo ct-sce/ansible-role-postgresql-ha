@@ -1,0 +1,12 @@
+---
+- name: PostgreSQL | Update the user group memberships
+  community.postgresql.postgresql_membership:
+    group: "{{ item.group }}"
+    target_roles: "{{ item.users }}"
+    state: exact
+    login_user: "{{ postgresql_admin_user }}"
+  with_items: "{{ postgresql_role_memberships }}"
+  become: true
+  become_user: "{{ postgresql_admin_user }}"
+  when: postgresql_users|length > 0 and repmgr_primary
+

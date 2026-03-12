@@ -151,6 +151,14 @@ In order to exactly figure out the purpose and valid values for each of these va
           - name: admin
             db: testdb
             role_attr_flags: "SUPERUSER"
+        # Role memberships
+        postgresql_role_memberships:
+          - group: pg_monitor
+            users:
+              - "{{ repmgr_user }}"
+          - group: admin
+            users:
+              - admin
 
 ```
 
